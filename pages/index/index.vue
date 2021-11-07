@@ -1,13 +1,13 @@
 <template>
 <view class="container">
- <!--   <scroll-view refresher-enabled="true" 
-        bindrefresherrefresh="onFresh" 
-        refresher-triggered="triggered"
-        bindscrolltolower="onNextPage"
+   <scroll-view refresher-enabled="true" 
+        @refresherrefresh="onFresh" 
+        :refresher-triggered="triggered"
+        @scrolltolower="onNextPage"
         scroll-y="true"
         lower-threshold="100"
         :style="{ height: height + 'px' }"
-    > -->
+    >
         <image src="../../static/WX20210807-233343@2x.png" style="width: 100%;height: 320rpx;vertical-align: middle;" />
         <view class="region">
            <view class="region-button selected-region" v-if="region.regionId" @tap="onToggleRegionList">
@@ -18,8 +18,8 @@
                 </view>
             </view>
             <view class="region-button" v-else>未选择区域</view>
-			<view :class="showRegionList">
-				<view class="region-button region-list"
+			<view :class="regionClass">
+				<view class="region-button"
 					 v-for="(item,index) in regionList" :key="index"
 					 :data-index="index"
 					 @tap="onChangeRegion"
@@ -29,18 +29,24 @@
 			</view>
         </view>
         <view>
-            <view v-for="(item,index) in list" :key="index"
-                value="item.appliName" @tap="onEnterAppli" :data-appid="item.appliId">
-                <image v-if="item.picUrl"
-                    :src="item.picUrl"
-                    style="margin-right: 16px;vertical-align: middle; width: 200rpx; height: 112.5rpx;" />
-                <image v-else
-                    src="https://cloudlark.pingxingyun.com:8180/static//images/default-pic.png"
-                    style="margin-right: 16px;vertical-align: middle; width: 200rpx; height: 112.5rpx;">
-                </image>
+            <view class="appli-item" v-for="(item,index) in list" :key="index" @tap="onEnterAppli" :data-appid="item.appliId">
+				<view class="appli-info">
+					<image v-if="item.picUrl"
+					    :src="item.picUrl"
+					    style="margin-right: 16px;vertical-align: middle; width: 200rpx; height: 112.5rpx;" />
+					<image v-else
+					    src="https://cloudlark.pingxingyun.com:8180/static//images/default-pic.png"
+					    style="margin-right: 16px;vertical-align: middle; width: 200rpx; height: 112.5rpx;">
+					</image>
+					<view>
+						{{item.appliName}}
+					</view>
+				</view>
+				<image src="../../static/arrow-right.png" class='icon-right'>
+				</image>
             </view>
         </view>
-    <!-- </scroll-view> -->
+    </scroll-view>
 </view>
 </template>
 
@@ -63,11 +69,13 @@
 					regionId: '',
 					regionName: '',
 				},
-				showRegionList: "",
+				showRegionList: false,
 			}
 		},
 		computed: {
-			
+			regionClass() {
+				return this.showRegionList ? "region-list show-region-list" : "region-list";
+			}
 		},
 		methods: {
 			// 事件处理函数
@@ -96,7 +104,7 @@
 			},
 			async onNextPage() {
 				if (this._freshing) return;
-				if (!this.data.hasNextPage) {
+				if (!this.hasNextPage) {
 					uni.showToast({
 						icon: 'none',
 						title: '已经到最后啦～',
@@ -105,7 +113,7 @@
 				}
 				this._freshing = true;
 				try {
-					this.freshList(this.data.nextPage, false);
+					this.freshList(this.nextPage, false);
 				} catch (e) {
 					console.warn(e);
 				}
@@ -139,7 +147,7 @@
 								this.hasNextPage = pageInfo.hasNextPage;
 								this.nextPage = pageInfo.nextPage;
 								this.pageNum = pageInfo.pageNum;
-								this.list = this.data.list.concat(res.records);
+								this.list = this.list.concat(res.records);
 							}
 							resolve();
 						})
@@ -210,13 +218,14 @@
 					});
 			},
 			onToggleRegionList() {
-				this.showRegionList = this.showRegionList ? "" : "show-region-list";
+				this.showRegionList = !this.showRegionList;
+				console.log('on toggle region list', this.showRegionList, this.regionClass);
 			},
 			onChangeRegion(event) {
 				// regionId: BJ
 				const index = event.currentTarget.dataset.index;
 				this.region = this.regionList[index];
-				this.showRegionList = this.showRegionList ? "" : "show-region-list";
+				this.showRegionList = !this.showRegionList;
 			},
 		},
 		onLoad() {
@@ -290,11 +299,27 @@
 	.region-list.show-region-list {
 	  /* display:initial; */
 	  /* height: auto; */
-	  max-height: 80rpx;
+	  max-height: 120rpx;
 	}
 
 	.region-list.show-region-list.region-button {
 	  border-bottom: 1rpx solid #ddd;
 	  padding: 10rpx;
+	}
+	
+	.appli-item {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 10rpx 35rpx;
+		border-bottom: 1rpx solid #c0c0c0;
+	}
+	.appli-item .appli-info {
+		display: flex;
+		align-items: center;
+	}
+	.appli-item .icon-right {
+		width: 40rpx;
+		height: 50rpx;
 	}
 </style>
