@@ -63,10 +63,7 @@
         }
     },
     "mp-alipay" : {
-        "usingComponents" : true,
-        "uniStatistics" : {
-            "enable" : true
-        }
+        "usingComponents" : true
     },
     "mp-baidu" : {
         "usingComponents" : true,

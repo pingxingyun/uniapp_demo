@@ -16,6 +16,7 @@ export default class RegionTest {
     region;
     callback;
     constructor(region, callback) {
+		console.log('region test', region, callback);
         this.onOpen = this.onOpen.bind(this);
         this.onMessage = this.onMessage.bind(this);
         this.onClose = this.onClose.bind(this);
@@ -23,10 +24,14 @@ export default class RegionTest {
         this.region = region;
         this.callback = callback;
         const url = `${Config.WebSocket}/websocket/${region.serverIp}/${region.serverPort}`;
+		console.log('create ws', url);
         this.ws = uni.connectSocket({
             url,
-			complete: ()=> {}
-        })
+			complete: ()=> {},
+			fail: (e) => { console.log('on  websocekt fail ', e); },
+        });
+		console.log('create ws', ws, url);
+		
         this.ws.onOpen(this.onOpen);
         this.ws.onMessage(this.onMessage);
         this.ws.onClose(this.onClose);

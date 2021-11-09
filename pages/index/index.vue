@@ -8,7 +8,7 @@
         lower-threshold="100"
         :style="{ height: height + 'px' }"
     >
-        <image src="../../static/WX20210807-233343@2x.png" style="width: 100%;height: 320rpx;vertical-align: middle;" />
+        <image src="../../static/WX20210807-233343.jpg" mode="aspectFill"  style="width: 100%; height: 320rpx;vertical-align: middle;" lazy-load="true" />
         <view class="region">
            <view class="region-button selected-region" v-if="region.regionId" @tap="onToggleRegionList">
                 <text>当前节点 {{region.regionName}} </text>
@@ -33,16 +33,20 @@
 				<view class="appli-info">
 					<image v-if="item.picUrl"
 					    :src="item.picUrl"
-					    style="margin-right: 16px;vertical-align: middle; width: 200rpx; height: 112.5rpx;" />
+						mode="aspectFill"
+					    style="margin-right: 16px;vertical-align: middle; width: 200rpx; height: 112.5rpx;" 
+						lazy-load="true" />
 					<image v-else
-					    src="https://cloudlark.pingxingyun.com:8180/static//images/default-pic.png"
-					    style="margin-right: 16px;vertical-align: middle; width: 200rpx; height: 112.5rpx;">
+						mode="aspectFill"
+					    src="../../static/default-cover.jpg"
+					    style="margin-right: 16px;vertical-align: middle; width: 200rpx; height: 112.5rpx;"
+						lazy-load="true">
 					</image>
 					<view>
 						{{item.appliName}}
 					</view>
 				</view>
-				<image src="../../static/arrow-right.png" class='icon-right'>
+				<image src="../../static/arrow-right.png" class='icon-right' mode="aspectFill">
 				</image>
             </view>
         </view>
@@ -122,7 +126,7 @@
 			},
 			freshList(page = 1, clearOld = true) {
 				return new Promise((resolve, reject) => {
-					Fetch.Get("getAppliList?page=1&pageSize=12", {
+					Fetch.Get("getAppliList", {
 						pageSize: 12,
 						page,
 					}).
@@ -137,7 +141,7 @@
 								nextPage: resPageInfo.current < resPageInfo.pages ? resPageInfo.current + 1 : resPageInfo.current,
 								pageNum: resPageInfo.current,
 							};
-							// console.log("page info ", resPageInfo, pageInfo);
+							console.log("page info ", resPageInfo, pageInfo);
 							if (clearOld) {
 								this.hasNextPage = pageInfo.hasNextPage;
 								this.nextPage = pageInfo.nextPage;
@@ -165,7 +169,7 @@
 					uni.showToast({
 					  icon: 'none',
 					  title: '选择与您最近的节点体验更佳',
-					  duration: 3000,
+					  success: function() {},
 					})
 					this.regionList = res;
 					
