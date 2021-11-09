@@ -1,6 +1,6 @@
 {
     "name" : "LarkSR",
-    "appid" : "__UNI__8588330",
+    "appid" : "",
     "description" : "LarkSR-Demo",
     "versionName" : "1.0.0",
     "versionCode" : "100",
@@ -53,7 +53,7 @@
     "quickapp" : {},
     /* 小程序特有相关 */
     "mp-weixin" : {
-        "appid" : "wx6b246f4477f63e93",
+        "appid" : "",
         "setting" : {
             "urlCheck" : false
         },
