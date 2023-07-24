@@ -22,6 +22,10 @@
      	{
      		"launchtype" : "local"
      	},
+     	"quickapp-union" : 
+     	{
+     		"launchtype" : "local"
+     	},
      	"type" : "uniCloud"
      }
     ]

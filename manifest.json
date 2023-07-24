@@ -95,5 +95,12 @@
         "uniStatistics" : {
             "enable" : true
         }
+    },
+    "quickapp-webview" : {
+        "icon" : "static/logo.png",
+        "package" : "com.pxy.larksr.unidemo",
+        "minPlatformVersion" : 1061,
+        "versionName" : "1.0",
+        "versionCode" : 1
     }
 }

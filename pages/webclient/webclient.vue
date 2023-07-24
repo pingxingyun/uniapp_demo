@@ -19,7 +19,8 @@
 			console.log("iframe url ", iframeurl);
 			
 			// this.url = iframeurl; */
-			this.url = option.url;
+			this.url = decodeURIComponent(option.url);
+			// this.url = "https://www.baidu.com";
 			
 			this._firstLoad = true;
 		},

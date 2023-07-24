@@ -17,7 +17,7 @@
                     <image src="../../static/arrow-down.png"></image>
                 </view>
             </view>
-            <view class="region-button" v-else>未选择区域</view>
+            <view class="region-button" @tap="onToggleRegionList" v-else>未选择区域</view>
 			<view :class="regionClass">
 				<view class="region-button"
 					 v-for="(item,index) in regionList" :key="index"
