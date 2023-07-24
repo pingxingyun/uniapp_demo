@@ -1,37 +1,31 @@
 # summary
 
-本项目演示使用 [https://uniapp.dcloud.io/](https://uniapp.dcloud.io/) 二次开发云雀 APP。
+Use [https://uniapp.dcloud.io/](https://uniapp.dcloud.io/) to develop LarkXR cloudrendering client APP。
 
-## 列表页
+## ListPage
 
-列表页主要演示获取应用列表，区域信息，和调用进入应用接口。主要关注以下三个后台接口
-
-1. 应用列表
+1. App list
 
 ```api
 getAppliList
 ```
 
-1. 区域信息
+1. Region list
 
 ```api
 renderServer/regionList
 ```
 
-1. 进入应用
+1. Enter cloud app
 
 ```api
 appli/getStartInfo
 ```
 
-## 云渲染客户端页面
+## Cloudrendering webclient
 
-主要关注 `web-view` 嵌入 云雀web客户端
+Use `web-view` open LarkSR webclient
 
-## 打包发布
+## Build
 
-uniapp 可以打包成原生 APP，网页小程序等。
-
-微信小程序预览
-
-![微信](./codes/gh_d0f564c25df0_258.jpg)
+![WeChet](./codes/gh_d0f564c25df0_258_2.jpg)
